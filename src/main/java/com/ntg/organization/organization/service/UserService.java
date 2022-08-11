@@ -3,6 +3,8 @@ package com.ntg.organization.organization.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ntg.organization.organization.dto.UserDTO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,12 +45,17 @@ public class UserService implements UserDetailsService {
 
 	}
 	
-	public User createNewUser(User user) {
-		if(user != null) {
+	public UserDTO createNewUser(UserDTO userDto) {
+		if(userDto != null) {
+			User user=new User();
+			BeanUtils.copyProperties(userDto, user);
 			user.setPassword(bcryptPasswordEncoder.encode(user.getPassword()));
-			return userRepository.save(user);
+			user=userRepository.save(user);
+			BeanUtils.copyProperties(user,userDto);
+			//userDto.setPassword(null);
+			return userDto;
 		}
 		
-		return user;
+		return null;
 	}
 }
