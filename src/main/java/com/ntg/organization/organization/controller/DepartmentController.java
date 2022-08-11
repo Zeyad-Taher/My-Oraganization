@@ -1,5 +1,6 @@
 package com.ntg.organization.organization.controller;
 
+import com.ntg.organization.organization.dto.DepartmentDTO;
 import com.ntg.organization.organization.entity.Department;
 import com.ntg.organization.organization.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,13 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;
 
-	@GetMapping(value = "/all")
-	public List<Department> getAllDepartment() {
+//	@GetMapping(value = "/all")
+//	public List<Department> getAllDepartment() {
+//		return departmentService.getAllDepartment();
+//	}
+
+	@GetMapping(value="/all")
+	public List<DepartmentDTO> getAllDepartment(){
 		return departmentService.getAllDepartment();
 	}
 

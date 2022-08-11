@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DepartmentRepository extends CrudRepository<Department, Long>{
-
 	public Department findByDeptName(String name);
 }

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,8 @@ public class Department {
 	
 	@Column(name = "dept_name", length = 100, nullable = false)
 	private String deptName;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "department")
 	private List<Employee> employees;
 }

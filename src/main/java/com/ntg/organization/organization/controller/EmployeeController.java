@@ -3,13 +3,7 @@ package com.ntg.organization.organization.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ntg.organization.organization.entity.Employee;
 import com.ntg.organization.organization.service.EmployeeService;
@@ -41,4 +35,8 @@ public class EmployeeController {
 		return employeeService.deleteEmployeeById(id);
 	}
 
+	@PutMapping(value="/assign/{empId}/{depId}")
+	public Employee assignDepartment(@PathVariable Long empId,@PathVariable Long depId){
+		return employeeService.updateEmployee(empId,depId);
+	}
 }
