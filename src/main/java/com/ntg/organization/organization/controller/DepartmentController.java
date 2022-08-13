@@ -1,6 +1,7 @@
 package com.ntg.organization.organization.controller;
 
 import com.ntg.organization.organization.dto.DepartmentDTO;
+import com.ntg.organization.organization.dto.EmployeeDTO;
 import com.ntg.organization.organization.entity.Department;
 import com.ntg.organization.organization.entity.Employee;
 import com.ntg.organization.organization.service.DepartmentService;
@@ -28,7 +29,7 @@ public class DepartmentController {
 	}
 
 	@GetMapping(value = "/getEmployees/{depName}")
-	public List<Employee> getEmployeesInDepartment(@PathVariable String depName){
+	public List<EmployeeDTO> getEmployeesInDepartment(@PathVariable String depName){
 		return departmentService.getEmployees(depName);
 	}
 

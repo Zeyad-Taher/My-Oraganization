@@ -1,6 +1,7 @@
 package com.ntg.organization.organization.service;
 
 import com.ntg.organization.organization.dto.DepartmentDTO;
+import com.ntg.organization.organization.dto.EmployeeDTO;
 import com.ntg.organization.organization.entity.Department;
 import com.ntg.organization.organization.entity.Employee;
 import com.ntg.organization.organization.respository.DepartmentRepository;
@@ -64,7 +65,19 @@ public class DepartmentService {
 		return departmentRepository.findById(depId).orElse(null);
 	}
 
-	public List<Employee> getEmployees(String depName) {
-		return departmentRepository.findByDeptName(depName).getEmployees();
+	public List<EmployeeDTO> getEmployees(String depName) {
+		List<Employee> empList = departmentRepository.findByDeptName(depName).getEmployees();
+		List<EmployeeDTO> empDTOList = null;
+
+		if(!empList.isEmpty()) {
+			empDTOList = new ArrayList<>();
+			EmployeeDTO empDto = null;
+			for (Employee employee : empList) {
+				empDto = new EmployeeDTO();
+				BeanUtils.copyProperties(employee, empDto);
+				empDTOList.add(empDto);
+			}
+		}
+		return empDTOList;
 	}
 }
