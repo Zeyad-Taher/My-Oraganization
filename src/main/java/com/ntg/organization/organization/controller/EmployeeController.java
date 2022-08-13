@@ -2,7 +2,10 @@ package com.ntg.organization.organization.controller;
 
 import java.util.List;
 
+import com.ntg.organization.organization.validation.EmployeeValidation;
+import org.apache.el.util.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ntg.organization.organization.entity.Employee;
@@ -14,15 +17,17 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private EmployeeValidation employeeValidation;
 
 	@GetMapping(value = "/all")
 	public List<Employee> getAllEmployee() {
 		return employeeService.getAllEmployee();
 	}
 
-	@GetMapping(value = "/getByName/{name}/{email}")
-	public Employee getEmployeeByName(@PathVariable String name, @PathVariable String email) {
-		return employeeService.getEmployeeByName(name, email);
+	@GetMapping(value = "/getByName&Email/{name}/{email}")
+	public ResponseEntity<?> getEmployeeByNameAndEmail(@PathVariable String name, @PathVariable String email) {
+		return employeeService.getEmployeeByNameAndEmail(name, email);
 	}
 
 	@PostMapping(value = "/add")

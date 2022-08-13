@@ -5,8 +5,10 @@ import com.ntg.organization.organization.dto.EmployeeDTO;
 import com.ntg.organization.organization.entity.Department;
 import com.ntg.organization.organization.entity.Employee;
 import com.ntg.organization.organization.respository.DepartmentRepository;
+import com.ntg.organization.organization.validation.DepartmentValidation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,15 +19,17 @@ public class DepartmentService {
 
 	@Autowired
 	private DepartmentRepository departmentRepository;
+	@Autowired
+	private DepartmentValidation departmentValidation;
 
 	public List<DepartmentDTO> getAllDepartment() {
-		List<Department> depts = (List<Department>) departmentRepository.findAll();
+		List<Department> departments = (List<Department>) departmentRepository.findAll();
 		List<DepartmentDTO> deptDTOList = null;
 
-		if(!depts.isEmpty()) {
+		if(!departments.isEmpty()) {
 			deptDTOList = new ArrayList<>();
 			DepartmentDTO deptDto = null;
-			for (Department department : depts) {
+			for (Department department : departments) {
 				deptDto = new DepartmentDTO();
 				BeanUtils.copyProperties(department, deptDto);
 				deptDTOList.add(deptDto);
@@ -51,14 +55,9 @@ public class DepartmentService {
 		return false;
 	}
 
-	public DepartmentDTO getDepartmentByName(String name) {
+	public ResponseEntity<?> getDepartmentByName(String name) {
 		Department department = departmentRepository.findByDeptName(name);
-		DepartmentDTO departmentDto = null;
-		if(department != null) {
-			departmentDto=new DepartmentDTO();
-			BeanUtils.copyProperties(department, departmentDto);
-		}
-		return departmentDto;
+		return departmentValidation.getDepartmentByName(department);
 	}
 
 	public Department getDepartmentById(Long depId) {

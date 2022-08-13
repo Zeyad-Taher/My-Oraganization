@@ -3,7 +3,9 @@ package com.ntg.organization.organization.service;
 import java.util.List;
 
 import com.ntg.organization.organization.entity.Department;
+import com.ntg.organization.organization.validation.EmployeeValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ntg.organization.organization.entity.Employee;
@@ -16,6 +18,8 @@ public class EmployeeService {
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	private EmployeeValidation employeeValidation;
 
 	public List<Employee> getAllEmployee() {
 		return (List<Employee>) employeeRepository.findAll();
@@ -37,8 +41,9 @@ public class EmployeeService {
 		return false;
 	}
 
-	public Employee getEmployeeByName(String name, String email) {
-		return employeeRepository.findByNameAndEmail(name, email);
+	public ResponseEntity<?> getEmployeeByNameAndEmail(String name, String email) {
+		Employee employee = employeeRepository.findByNameAndEmail(name, email);
+		return employeeValidation.getEmployeeByNameAndEmail(employee);
 	}
 
 	public Employee updateEmployee(Long empId, Long depId) {
