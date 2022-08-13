@@ -2,7 +2,9 @@ package com.ntg.organization.organization.controller;
 
 import com.ntg.organization.organization.dto.DepartmentDTO;
 import com.ntg.organization.organization.entity.Department;
+import com.ntg.organization.organization.entity.Employee;
 import com.ntg.organization.organization.service.DepartmentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,19 +17,19 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;
 
-//	@GetMapping(value = "/all")
-//	public List<Department> getAllDepartment() {
-//		return departmentService.getAllDepartment();
-//	}
-
 	@GetMapping(value="/all")
 	public List<DepartmentDTO> getAllDepartment(){
 		return departmentService.getAllDepartment();
 	}
 
-	@GetMapping(value = "/getByName/{name}")
-	public Department getDepartmentByName(@PathVariable String name) {
-		return departmentService.getDepartmentByName(name);
+	@GetMapping(value = "/getByName/{depName}")
+	public DepartmentDTO getDepartmentByName(@PathVariable String depName) {
+		return departmentService.getDepartmentByName(depName);
+	}
+
+	@GetMapping(value = "/getEmployees/{depName}")
+	public List<Employee> getEmployeesInDepartment(@PathVariable String depName){
+		return departmentService.getEmployees(depName);
 	}
 
 	@PostMapping(value = "/add")

@@ -3,6 +3,8 @@ package com.ntg.organization.organization;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+//Swagger
+//http://localhost:8090/swagger-ui.html
 @SpringBootApplication
 public class OrganizationApplication {
 

@@ -2,6 +2,7 @@ package com.ntg.organization.organization.service;
 
 import com.ntg.organization.organization.dto.DepartmentDTO;
 import com.ntg.organization.organization.entity.Department;
+import com.ntg.organization.organization.entity.Employee;
 import com.ntg.organization.organization.respository.DepartmentRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +50,21 @@ public class DepartmentService {
 		return false;
 	}
 
-	public Department getDepartmentByName(String name) {
-		return departmentRepository.findByDeptName(name);
+	public DepartmentDTO getDepartmentByName(String name) {
+		Department department = departmentRepository.findByDeptName(name);
+		DepartmentDTO departmentDto = null;
+		if(department != null) {
+			departmentDto=new DepartmentDTO();
+			BeanUtils.copyProperties(department, departmentDto);
+		}
+		return departmentDto;
 	}
 
 	public Department getDepartmentById(Long depId) {
 		return departmentRepository.findById(depId).orElse(null);
+	}
+
+	public List<Employee> getEmployees(String depName) {
+		return departmentRepository.findByDeptName(depName).getEmployees();
 	}
 }
