@@ -7,9 +7,9 @@ import com.ntg.organization.organization.exception.Errors;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class DepartmentValidation {
 
     public ResponseEntity<?> getDepartmentByName(Department department) {

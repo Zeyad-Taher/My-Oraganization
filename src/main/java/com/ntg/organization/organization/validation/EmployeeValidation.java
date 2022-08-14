@@ -5,9 +5,9 @@ import com.ntg.organization.organization.exception.ErrorResponse;
 import com.ntg.organization.organization.exception.Errors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class EmployeeValidation {
     public ResponseEntity<?> getEmployeeByNameAndEmail(Employee employee) {
         if(employee == null){
